@@ -170,6 +170,14 @@ func (iframe *Framework) Errorln(v ...interface{}) {
 }
 
 //==============================Internal Function=======================================================================
+//parse json config
+func ParseJsonConfig(path string, config interface{}){
+	file, _ := os.Open(path)
+	defer file.Close()
+	buf := new(bytes.Buffer)
+	buf.ReadFrom(file)
+	json.Unmarshal(buf.Bytes(), &config)
+}
 
 //exec on_start_once func
 func (iframe *Framework) onStartOnceLoop() {
