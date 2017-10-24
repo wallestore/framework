@@ -9,7 +9,6 @@ import (
 
 //init1
 func init() {
-	// debug
 	framework.SetAppName("heartbeat")
 	framework.Heartbeat(10*time.Second, heartbeat)
 }
