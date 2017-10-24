@@ -3,8 +3,6 @@ package main
 import (
 	"github.com/wallestore/framework"
 	"time"
-
-	"fmt"
 )
 
 //init1
@@ -25,5 +23,6 @@ func main() {
 }
 
 func heartbeat() {
-	fmt.Print("heartbeat ok")
+	//fmt.Print("heartbeat ok")
+	framework.Verboseln("heartbeat ok")
 }
