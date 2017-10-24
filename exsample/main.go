@@ -9,6 +9,7 @@ import (
 
 //init1
 func init() {
+	// debug
 	framework.SetAppName("heartbeat")
 	framework.Heartbeat(10*time.Second, heartbeat)
 }
@@ -24,6 +25,6 @@ func main() {
 	framework.Start()
 }
 
-func heartbeat(){
+func heartbeat() {
 	fmt.Print("heartbeat ok")
 }
