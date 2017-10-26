@@ -180,7 +180,7 @@ func (iframe *Framework) Errorln(v ...interface{}) {
 func Verboseln(v ...interface{}) { iframe.VerboseLn(v) }
 func (iframe *Framework) VerboseLn(v ...interface{}) {
 	if verbose_mode {
-		log.Output(2, fmt.Sprintln(v...))
+		iframe.Logln(v...)
 	}
 }
 
