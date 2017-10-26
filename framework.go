@@ -106,7 +106,7 @@ func (iframe *Framework) Start() {
 
 	iframe.onStartOnceLoop()
 	// verbose monitor
-	go signalAction()
+	//go signalAction()
 	//loop func
 	go iframe.timeLoop()
 }
@@ -117,6 +117,10 @@ func (iframe *Framework) Stop() {
 	for _, fu := range iframe.On_stop_once {
 		fu()
 	}
+}
+
+func ReverseDebugMode() {
+	verbose_mode = !verbose_mode
 }
 
 //loop
