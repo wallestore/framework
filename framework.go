@@ -165,7 +165,8 @@ func (iframe *Framework) Exit(fu func()) {
 //log
 func Logln(v ...interface{}) { iframe.Logln(v) }
 func (iframe *Framework) Logln(v ...interface{}) {
-	log.Output(2, fmt.Sprintln(v...))
+	//log.Output(2, fmt.Sprintln(v...))
+	log.Println(v)
 }
 
 //error log
