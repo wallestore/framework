@@ -39,6 +39,7 @@ type Framework struct {
 }
 
 var errorLog = log.New(os.Stderr, "ERROR ", log.Ldate|log.Ltime|log.Lshortfile)
+var printLog = log.New(os.Stdout, "", log.Ldate|log.Ltime|log.Lshortfile)
 
 func init() {
 	iframe = New()
@@ -166,7 +167,7 @@ func (iframe *Framework) Exit(fu func()) {
 func Logln(v ...interface{}) { iframe.Logln(v) }
 func (iframe *Framework) Logln(v ...interface{}) {
 	//log.Output(2, fmt.Sprintln(v...))
-	log.Println(v)
+	printLog.Output(2, fmt.Sprintln(v...))
 }
 
 //error log
