@@ -22,6 +22,8 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+	"bufio"
+	"io"
 )
 
 var (
@@ -208,9 +210,50 @@ func ParseJsonConfig(path string, config interface{}) {
 	file, _ := os.Open(path)
 	defer file.Close()
 	buf := new(bytes.Buffer)
-	buf.ReadFrom(file)
+	//buf.ReadFrom(file)
+	rd := bufio.NewReader(file)
+	for {
+		line, _, err := rd.ReadLine()
+		buf.Write(clearComments(line))
+		buf.Write([]byte("\n"))
+		if err == io.EOF {
+			break
+		}
+	}
 	json.Unmarshal(buf.Bytes(), &config)
 }
+
+func clearComments(line []byte) []byte{
+	if !bytes.Contains(line, []byte("//")) {
+		return line
+	} else {
+		b := bytes.Split(line, []byte("//"))
+		//Full space or tab
+		nb := bytes.TrimFunc(b[0], func(r rune) bool {
+			if r == ' ' || r == '	' {
+				return true
+			} else {
+				return false
+			}
+		})
+
+		if len(nb) == 0 {
+			return []byte{}
+		}
+
+		//过滤 ,...// or 空格//
+		var nnb [][]byte
+		for _,sub_b:= range b {
+			nnb = append(nnb, sub_b)
+			if bytes.HasSuffix(sub_b, []byte(" ")) ||
+				bytes.HasSuffix(sub_b, []byte(",")){
+				break
+			}
+		}
+		return bytes.Join(nnb, []byte("//"))
+	}
+}
+
 
 //exec on_start_once func
 func (iframe *Framework) onStartOnceLoop() {
