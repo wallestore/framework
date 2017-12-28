@@ -1,4 +1,4 @@
-exsample
+example
 =============
 
 
