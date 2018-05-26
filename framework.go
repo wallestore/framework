@@ -264,7 +264,6 @@ func (iframe *Framework) onStartOnceLoop() {
 
 //exec time_loop func
 func (iframe *Framework) timeLoop() {
-	fmt.Println("ok")
 	for t, funs := range iframe.On_time_loop {
 		go func(t time.Duration, funs []func()) {
 			tick := time.NewTicker(t)
