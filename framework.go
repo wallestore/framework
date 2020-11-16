@@ -14,16 +14,16 @@
 package framework
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
-	"bufio"
-	"io"
 )
 
 var (
@@ -88,7 +88,7 @@ func (iframe *Framework) CloseTimeLoop() {
 //start application
 func Boot() {
 	iframe.Start()
-	iframe.Loop()
+	//iframe.Loop()
 }
 func (iframe *Framework) Boot() {
 
@@ -223,7 +223,7 @@ func ParseJsonConfig(path string, config interface{}) {
 	json.Unmarshal(buf.Bytes(), &config)
 }
 
-func clearComments(line []byte) []byte{
+func clearComments(line []byte) []byte {
 	if !bytes.Contains(line, []byte("//")) {
 		return line
 	} else {
@@ -243,17 +243,16 @@ func clearComments(line []byte) []byte{
 
 		//过滤 ,...// or 空格//
 		var nnb [][]byte
-		for _,sub_b:= range b {
+		for _, sub_b := range b {
 			nnb = append(nnb, sub_b)
 			if bytes.HasSuffix(sub_b, []byte(" ")) ||
-				bytes.HasSuffix(sub_b, []byte(",")){
+				bytes.HasSuffix(sub_b, []byte(",")) {
 				break
 			}
 		}
 		return bytes.Join(nnb, []byte("//"))
 	}
 }
-
 
 //exec on_start_once func
 func (iframe *Framework) onStartOnceLoop() {

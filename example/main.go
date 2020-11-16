@@ -20,6 +20,7 @@ func init() {
 
 func main() {
 	framework.Start()
+	framework.Loop()
 }
 
 func heartbeat() {
