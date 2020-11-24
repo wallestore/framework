@@ -141,9 +141,11 @@ func (iframe *Framework) Loop() {
 	case syscall.SIGSTOP, syscall.SIGQUIT, syscall.SIGTERM, os.Interrupt: //kill -19
 		fmt.Println("stop ....", iframe.AppName)
 		iframe.CloseTimeLoop()
-	case syscall.SIGHUP, syscall.SIGKILL: // kill -1
+	case syscall.SIGHUP, syscall.SIGKILL, syscall.SIGINT: // kill -1
 		iframe.CloseTimeLoop()
-		log.Println("sign up:", iframe.AppName)
+		log.Println("stop:", iframe.AppName)
+	case syscall.SIGUSR1: //xargs kill -s USR1
+		ReverseDebugMode()
 	}
 	iframe.Stop()
 }
